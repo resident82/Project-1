@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Карта с точками пользователей</title>
+
+<script src="http://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
+    <script src="http://yandex.st/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        ymaps.ready(init);
+        var myMap, 
+            myPlacemark;
+
+        function init(){ 
+            myMap = new ymaps.Map ("map", {
+                center: [55.76, 37.64],
+                zoom: 7
+            }); 
+            
+            myPlacemark = new ymaps.Placemark([55.76, 37.64], {
+                content: 'Москва!',
+                balloonContent: 'Столица России'
+            });
+            
+            myMap.geoObjects.add(myPlacemark);
+
+            map.removeAllOverlays();
+            var ml = new YMaps.YMapsML( 'create_YMapsML-2.php' );
+            map.addOverlay(ml);
+
+            YMaps.Events.observe(ml, ml.Events.Fault, function (error) {
+                alert('Ошибка: ' + error);
+            });
+			
+			YMaps.Events.observe(map, map.Events.Click, function (map, mEvent) {
+                var myHtml = "Значение: " + mEvent.getGeoPoint() + "<br>"+'<form id="formadd" name="formadd_point" method="post" action="outpoint2-2.php"><p>Название: <input name="namepoint" type="text" size="20" maxlength="80" /></p><p>Описание: <textarea name="descriptpoint" cols="20" rows="5"></textarea></p><input name="pcoord" type="hidden" value="'+mEvent.getGeoPoint()+'" /><p><input name="subpoint" type="submit" value="Добавить" /></p></form>';
+                map.openBalloon(mEvent.getGeoPoint(), myHtml);
+            });	
+        }
+    </script>
+    
+    
+</head>
+
+<body>
+
+    <div id="YMapsID" style="width:600px;height:400px"></div>
+<p><a href="http://webmap-blog.ru/?p=419" title="Яндекс.Карта на Вашем сайте с возможностью добавления меток пользователями - Продолжение-3" target="_blank">Вернуться к тексту заметки</a></p>
+</body>
+
+</html>
