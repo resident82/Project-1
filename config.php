@@ -22,3 +22,5 @@ if(!mysql_select_db($db_name, $link))
 mysql_query('SET NAMES utf8');
  
 ?>
+
+// внес просто коммент
